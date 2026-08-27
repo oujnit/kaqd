@@ -134,6 +134,12 @@
     return match ? decodeURIComponent(match[1]) : null;
   }
 
+  function showBattery(percent, charging) {
+    percent = Math.max(0, Math.min(100, percent));
+    ui.text('batPct', (charging ? '⚡ ' : '') + percent + '%');
+    ui.attribute(ui.find('batFill'), 'width', Math.round(18 * percent / 100));
+  }
+
   function updateBattery() {
     var percentText = queryValue('battery');
     var chargeText = queryValue('charging');
@@ -146,12 +152,23 @@
       if (typeof device.charging === 'boolean') charging = device.charging;
       if (device.charging === 0 || device.charging === 1) charging = device.charging === 1;
     }
-    if (percent === null || isNaN(percent)) return;
-
-    percent = Math.max(0, Math.min(100, percent));
-    ui.text('batPct', (charging ? '⚡ ' : '') + percent + '%');
-    ui.attribute(ui.find('batFill'), 'width', Math.round(18 * percent / 100));
+    if (percent === null || isNaN(percent)) {
+      var batteryApi = win.navigator && win.navigator.getBattery;
+      if (batteryApi) {
+        batteryApi.call(win.navigator).then(function (battery) {
+          var update = function () {
+            showBattery(Math.round(battery.level * 100), battery.charging === true);
+          };
+          update();
+          battery.addEventListener('levelchange', update);
+          battery.addEventListener('chargingchange', update);
+        }).catch(function () {});
+      }
+      return;
+    }
+    showBattery(percent, charging);
   }
+
 
   function attachScript(url, onSuccess, onFailure) {
     var script = doc.createElement('script');

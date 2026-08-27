@@ -122,6 +122,14 @@ body {
 .data-alert.on { display: block; }
 .footer .warn { color: #000; font-weight: 700; }
 </style>
+<script>
+(function () {
+  var scale = Math.min(window.innerWidth / 600, window.innerHeight / 800);
+  if (isFinite(scale) && scale > 0 && Math.abs(scale - 1) > 0.01) {
+    document.documentElement.style.zoom = scale;
+  }
+})();
+</script>
 </head>
 <body>
 

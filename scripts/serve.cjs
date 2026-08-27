@@ -7,6 +7,7 @@ const { ROOT } = require('../src/lib/config.cjs');
 
 const root = path.join(ROOT, 'dist');
 const port = Number(process.env.PORT || 8787);
+const host = String(process.env.HOST || '127.0.0.1');
 const types = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -41,6 +42,6 @@ const server = http.createServer((request, response) => {
   });
 });
 
-server.listen(port, '127.0.0.1', () => {
-  process.stdout.write(`preview http://127.0.0.1:${port}\n`);
+server.listen(port, host, () => {
+  process.stdout.write(`preview http://${host === '0.0.0.0' ? '<本机局域网IP>' : host}:${port}\n`);
 });
