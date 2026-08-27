@@ -1,5 +1,6 @@
 'use strict';
 
+const { execFile } = require('node:child_process');
 const {
   clampPct,
   expandHome,
@@ -8,6 +9,21 @@ const {
   isoBeijing,
   readJson,
 } = require('../lib/common.cjs');
+
+function readKeychain(service) {
+  return new Promise((resolve, reject) => {
+    execFile('/usr/bin/security', ['find-generic-password', '-s', service, '-w'], {
+      encoding: 'utf8',
+      timeout: 10_000,
+    }, (error, stdout) => {
+      if (error) {
+        reject(new Error(error.code === 44 ? `钥匙串中没有 ${service} 条目` : `钥匙串读取失败（${error.code || error.message}）`));
+        return;
+      }
+      resolve(String(stdout || '').trim());
+    });
+  });
+}
 
 async function collectClaude(config = {}) {
   const fetchedAt = isoBeijing();
@@ -18,9 +34,21 @@ async function collectClaude(config = {}) {
     return failedWindows('Claude', '必须显式开启 experimental 和 allowLocalCredentialRead', fetchedAt);
   }
   try {
-    const credentialsPath = expandHome(config.credentialsFile || '~/.claude/.credentials.json');
-    const credentials = readJson(credentialsPath);
-    const token = String(credentials && credentials.claudeAiOauth && credentials.claudeAiOauth.accessToken || '').trim();
+    let token = '';
+    if (config.keychainService) {
+      const raw = await readKeychain(String(config.keychainService));
+      try {
+        // 新版 Claude Code 在钥匙串里存的是完整凭证 JSON，而不是裸 token
+        const parsed = JSON.parse(raw);
+        token = String(parsed && parsed.claudeAiOauth && parsed.claudeAiOauth.accessToken || '').trim();
+      } catch {
+        token = raw;
+      }
+    } else {
+      const credentialsPath = expandHome(config.credentialsFile || '~/.claude/.credentials.json');
+      const credentials = readJson(credentialsPath);
+      token = String(credentials && credentials.claudeAiOauth && credentials.claudeAiOauth.accessToken || '').trim();
+    }
     if (!token) throw new Error('Claude 登录凭据中没有 accessToken');
     const payload = await fetchJson('https://api.anthropic.com/api/oauth/usage', {
       headers: {
@@ -49,4 +77,4 @@ async function collectClaude(config = {}) {
   }
 }
 
-module.exports = { collectClaude };
+module.exports = { collectClaude, readKeychain };

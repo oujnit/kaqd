@@ -14,6 +14,8 @@
     "build": "node scripts/build-site.cjs",
     "serve": "node scripts/serve.cjs",
     "package:kindle": "node scripts/build-kpkg.cjs",
+    "deploy": "node scripts/deploy.cjs",
+    "weather": "node scripts/fetch-weather.cjs",
     "test": "node --test tests/*.test.cjs",
     "check": "node scripts/check-public.cjs && node --test tests/*.test.cjs"
   }
