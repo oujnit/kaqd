@@ -33,4 +33,13 @@ run('git', ['-C', workDir, 'remote', 'add', 'origin', 'https://github.com/oujnit
 run('git', ['-C', workDir, 'push', '-qf', 'origin', 'gh-pages']);
 
 fs.rmSync(workDir, { recursive: true, force: true });
+
+// 这个仓库的 Pages 不会随 gh-pages 推送自动构建，需要 API 触发；
+// 触发失败不阻塞，分支内容已更新，下一轮定时任务会重试
+try {
+  run('gh', ['api', '-X', 'POST', 'repos/oujnit/kindle-ai-quota-dashboard/pages/builds']);
+} catch (error) {
+  process.stderr.write('Pages 构建触发失败（gh-pages 已更新，等待下一轮重试）：\n');
+}
+
 process.stdout.write(`deployed to https://oujnit.github.io/kindle-ai-quota-dashboard/\n`);
