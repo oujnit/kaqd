@@ -6,7 +6,10 @@
   "providers": {
     "deepseek": {
       "enabled": false,
-      "apiKeyEnv": "DEEPSEEK_API_KEY"
+      "experimental": true,
+      "allowLocalCredentialRead": true,
+      "apiKeyEnv": "DEEPSEEK_API_KEY",
+      "credentialsFile": "config/deepseek.key"
     },
     "claude": {
       "enabled": false,
