@@ -16,6 +16,22 @@ function extractResetAt(html) {
   return fallback ? fallback[1] : '';
 }
 
+function extractStats(html) {
+  const statRow = html.match(/<dl class="stat-row">([\s\S]*?)<\/dl>/);
+  if (!statRow) return { resets: null, avgInterval: '', longestWait: '' };
+  const values = [];
+  const pattern = /<dd class="mono">([^<]*)<\/dd>/g;
+  let match;
+  while ((match = pattern.exec(statRow[1])) !== null) {
+    values.push(match[1].trim());
+  }
+  return {
+    resets: values[0] || null,
+    avgInterval: values[1] || '',
+    longestWait: values[2] || '',
+  };
+}
+
 async function fetchPage() {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -38,10 +54,12 @@ async function collectCodexResets() {
     const resetAt = extractResetAt(html);
     const parsed = resetAt ? Date.parse(resetAt) : NaN;
     if (Number.isNaN(parsed)) throw new Error('页面里没有找到最新重置时间');
+    const stats = extractStats(html);
     return {
       ok: true,
       label: 'Codex Resets',
       resetAt: isoBeijing(parsed),
+      ...stats,
       sourceUrl: PAGE_URL,
       fetchedAt,
       error: null,

@@ -340,7 +340,12 @@
     var absolute = (resetDate.getMonth() + 1) + '月' + resetDate.getDate() + '日 ' +
       twoDigits(resetDate.getHours()) + ':' + twoDigits(resetDate.getMinutes());
     ui.text('codexResetRel', relative);
-    ui.text('codexResetAbs', absolute + ' 重置 · codex-resets.com');
+    var stats = [];
+    if (info.resets) stats.push('累计' + info.resets + '次');
+    if (info.avgInterval) stats.push('均隔' + info.avgInterval);
+    if (info.longestWait) stats.push('最长' + info.longestWait);
+    ui.text('codexResetAbs', absolute + ' 重置 · ' +
+      (stats.length ? stats.join(' · ') + ' · ' : '') + 'codex-resets.com');
   }
 
   function present(data) {
