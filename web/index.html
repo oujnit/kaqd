@@ -80,6 +80,7 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px;
   flex: 1;
 }
+#cardDeepSeek { grid-column: 1 / -1; }
 .q-card {
   background: var(--card-bg); border: 1px solid var(--border-light);
   padding: 12px 14px; display: flex; flex-direction: column;
@@ -107,6 +108,15 @@ body {
 .q-balance { font-size: 24px; font-weight: 700; margin: 6px 0 4px; }
 .q-balance-unit { font-size: 12px; font-weight: 400; color: var(--light); }
 .q-balance-sub { font-size: 11px; color: var(--faint); }
+
+/* Codex last reset line */
+.q-reset {
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 11px; letter-spacing: 0.06em; color: var(--mid); font-weight: 600;
+}
+.q-reset .mono { font-size: 13px; font-weight: 700; }
+.q-reset-sub { font-size: 10px; color: var(--faint); margin-top: 2px; }
 
 /* ===== Footer ===== */
 .footer {
@@ -167,16 +177,6 @@ body {
 
 <!-- ===== AI Quotas ===== -->
 <div class="quota-grid">
-  <!-- Latest official Codex limit reset (codex-resets.com) -->
-  <div class="q-card" id="cardReset">
-    <div class="q-head">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/><path d="M3 3v5h5"/></g></svg>
-      <span class="q-name sans">Last Reset</span>
-    </div>
-    <div class="q-balance mono" id="resetRel">--</div>
-    <div class="q-balance-sub sans" id="resetAbs">来自 codex-resets.com</div>
-  </div>
-
   <!-- GLM (Zhipu ZAI) -->
   <div class="q-card" id="cardZai">
     <div class="q-head">
@@ -211,6 +211,9 @@ body {
       <div class="q-bar"><div class="q-bar-fill" style="width:45%"></div></div>
       <div class="q-refresh sans">↻ Mon</div>
     </div>
+
+    <div class="q-reset sans"><span>LAST RESET</span><span class="mono" id="codexResetRel">--</span></div>
+    <div class="q-reset-sub sans" id="codexResetAbs">等待实时数据</div>
   </div>
 
   <!-- DeepSeek -->

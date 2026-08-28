@@ -339,8 +339,8 @@
     var resetDate = new Date(resetTs);
     var absolute = (resetDate.getMonth() + 1) + '月' + resetDate.getDate() + '日 ' +
       twoDigits(resetDate.getHours()) + ':' + twoDigits(resetDate.getMinutes());
-    ui.text('resetRel', relative);
-    ui.text('resetAbs', absolute + ' · codex-resets.com');
+    ui.text('codexResetRel', relative);
+    ui.text('codexResetAbs', absolute + ' 重置 · codex-resets.com');
   }
 
   function present(data) {
