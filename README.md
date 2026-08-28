@@ -4,7 +4,7 @@
 
 **不需要同一个 WiFi。** 电脑和 Kindle 可以在不同的网络——数据通过 GitHub Pages 中转，只要两边都能上网就行。这是和 GitHub 上其他类似项目最大的区别：它们大多要求电脑和显示设备在同一个局域网里。
 
-![中控台效果](docs/screenshot.png)
+![中控台效果](docs/screenshot-eink.png)
 
 ---
 

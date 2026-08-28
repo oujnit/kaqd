@@ -42,4 +42,4 @@ try {
   process.stderr.write('Pages 构建触发失败（gh-pages 已更新，等待下一轮重试）：\n');
 }
 
-process.stdout.write(`deployed to https://oujnit.github.io/kindle-ai-quota-dashboard/\n`);
+process.stdout.write('deployed to GitHub Pages\n');
