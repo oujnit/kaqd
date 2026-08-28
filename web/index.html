@@ -117,6 +117,12 @@ body {
 }
 .q-reset .mono { font-size: 13px; font-weight: 700; }
 .q-reset-sub { font-size: 10px; color: var(--faint); margin-top: 2px; }
+.reset-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+.reset-stat {
+  background: var(--bar-bg); padding: 6px 8px; text-align: center;
+}
+.reset-stat .rs-value { font-size: 14px; font-weight: 700; font-family: Menlo, Consolas, monospace; }
+.reset-stat .rs-label { font-size: 9px; letter-spacing: 0.08em; color: var(--faint); margin-top: 1px; }
 
 /* ===== Footer ===== */
 .footer {
@@ -214,6 +220,11 @@ body {
 
     <div class="q-reset sans"><span>LAST RESET</span><span class="mono" id="codexResetRel">--</span></div>
     <div class="q-reset-sub sans" id="codexResetAbs">等待实时数据</div>
+    <div class="reset-stats">
+      <div class="reset-stat"><div class="rs-value" id="statResets">--</div><div class="rs-label sans">累计重置</div></div>
+      <div class="reset-stat"><div class="rs-value" id="statAvg">--</div><div class="rs-label sans">平均间隔</div></div>
+      <div class="reset-stat"><div class="rs-value" id="statLongest">--</div><div class="rs-label sans">最长等待</div></div>
+    </div>
   </div>
 
   <!-- DeepSeek -->
