@@ -34,4 +34,21 @@ const endpoint = process.env.DASHBOARD_URL
 fs.writeFileSync(path.join(distDir, 'live-endpoint.js'),
   `window.DASH_LIVE_ENDPOINT = '${endpoint}';\n`, 'utf8');
 fs.writeFileSync(path.join(distDir, '.nojekyll'), '', 'utf8');
+
+// 部分墨水屏浏览器按文件路径缓存 JS 且无视 ?v= 版本参数，
+// 会拿旧脚本配新页面导致页面停在占位状态。
+// 把所有会变化的脚本和数据直接内嵌进 index.html，单文件即整页。
+const htmlPath = path.join(distDir, 'index.html');
+let html = fs.readFileSync(htmlPath, 'utf8');
+const inline = (name, content) => {
+  html = html.replace(
+    new RegExp('<script src="' + name + '[^"]*"></script>'),
+    '<script>\n' + content + '\n</script>',
+  );
+};
+inline('data.js', fs.readFileSync(path.join(distDir, 'data.js'), 'utf8').trim());
+inline('live-endpoint.js', fs.readFileSync(path.join(distDir, 'live-endpoint.js'), 'utf8').trim());
+inline('dashboard-runtime.js', fs.readFileSync(path.join(distDir, 'dashboard-runtime.js'), 'utf8').trim());
+inline('keep-awake.js', fs.readFileSync(path.join(distDir, 'keep-awake.js'), 'utf8').trim());
+fs.writeFileSync(htmlPath, html, 'utf8');
 process.stdout.write(`built ${distDir}\n`);
