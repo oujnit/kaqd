@@ -1,5 +1,6 @@
 'use strict';
 
+const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 const { ROOT } = require('../src/lib/config.cjs');
@@ -43,9 +44,20 @@ function walk(dir) {
   return output;
 }
 
+// gitignore 覆盖的本地文件（如 config.json）本来就不会进仓库，不参与检查
+let ignoredOnDisk = new Set();
+try {
+  const listed = execFileSync('git', ['ls-files', '--others', '--ignored', '--exclude-standard'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+  ignoredOnDisk = new Set(listed.split('\n').filter(Boolean));
+} catch {}
+
 const problems = [];
 for (const filePath of walk(ROOT)) {
   const relative = path.relative(ROOT, filePath);
+  if (ignoredOnDisk.has(relative)) continue;
   if (relative === path.join('scripts', 'check-public.cjs')) continue;
   const inExamples = relative.startsWith(`examples${path.sep}`);
   if (!inExamples && forbiddenNames.some((pattern) => pattern.test(path.basename(filePath)))) {
