@@ -7,7 +7,7 @@ const { ROOT } = require('../src/lib/config.cjs');
 const webDir = path.join(ROOT, 'web');
 const stateDir = path.join(ROOT, 'state');
 const distDir = path.join(ROOT, 'dist');
-const required = ['index.html', 'dashboard-runtime.js'];
+const required = ['index.html', 'dashboard-runtime.js', 'keep-awake.js', 'awake.mp4'];
 
 for (const name of required) {
   const source = path.join(webDir, name);
