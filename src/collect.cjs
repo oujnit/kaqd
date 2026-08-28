@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { collectClaude } = require('./collectors/claude.cjs');
 const { collectCodex } = require('./collectors/codex.cjs');
+const { collectCodexResets } = require('./collectors/codex-resets.cjs');
 const { collectDeepSeek } = require('./collectors/deepseek.cjs');
 const { collectKimi } = require('./collectors/kimi.cjs');
 const { collectZai } = require('./collectors/zai.cjs');
@@ -88,6 +89,14 @@ function demoSnapshot() {
   const afterHours = (hours) => isoBeijing(Date.now() + hours * 60 * 60 * 1000);
   return {
     updatedAt: now,
+    codexResets: {
+      ok: true,
+      label: 'Codex Resets',
+      resetAt: afterHours(-8),
+      sourceUrl: 'https://codex-resets.com/',
+      fetchedAt: now,
+      error: null,
+    },
     weather: {
       ok: true,
       description: '晴',
@@ -159,17 +168,19 @@ function demoSnapshot() {
 
 async function realSnapshot(config) {
   const providers = config.providers || {};
-  const [claude, codex, kimi, deepseek, zai] = await Promise.all([
+  const [claude, codex, kimi, deepseek, zai, codexResets] = await Promise.all([
     collectClaude(providers.claude),
     collectCodex(providers.codex),
     collectKimi(providers.kimi),
     collectDeepSeek(providers.deepseek),
     collectZai(providers.zai),
+    collectCodexResets(),
   ]);
   return {
     updatedAt: isoBeijing(),
     weather: readWeather(config.weatherFile),
     quote: readQuote(config.quoteFile),
+    codexResets,
     sources: { claude, codex, kimi, deepseek, zai },
   };
 }

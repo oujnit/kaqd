@@ -167,6 +167,16 @@ body {
 
 <!-- ===== AI Quotas ===== -->
 <div class="quota-grid">
+  <!-- Latest official Codex limit reset (codex-resets.com) -->
+  <div class="q-card" id="cardReset">
+    <div class="q-head">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/><path d="M3 3v5h5"/></g></svg>
+      <span class="q-name sans">Last Reset</span>
+    </div>
+    <div class="q-balance mono" id="resetRel">--</div>
+    <div class="q-balance-sub sans" id="resetAbs">来自 codex-resets.com</div>
+  </div>
+
   <!-- GLM (Zhipu ZAI) -->
   <div class="q-card" id="cardZai">
     <div class="q-head">
@@ -222,6 +232,6 @@ body {
 
 <script src="data.js"></script>
 <script src="live-endpoint.js"></script>
-<script src="dashboard-runtime.js?v=20260720"></script>
+<script src="dashboard-runtime.js?v=20260828"></script>
 </body>
 </html>

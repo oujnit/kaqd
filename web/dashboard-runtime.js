@@ -321,6 +321,28 @@
     }
   }
 
+  function updateCodexResets(info) {
+    var resetTs = timestamp(info && info.resetAt);
+    if (!info || !info.ok || !resetTs) return;
+    var elapsed = Date.now() - resetTs;
+    var minutes = Math.max(0, Math.floor(elapsed / 60000));
+    var days = Math.floor(minutes / 1440);
+    var hours = Math.floor((minutes % 1440) / 60);
+    var relative;
+    if (days) {
+      relative = days + 'd' + (hours ? ' ' + hours + 'h' : '') + ' ago';
+    } else if (hours) {
+      relative = hours + 'h' + twoDigits(minutes % 60) + 'm ago';
+    } else {
+      relative = minutes + 'm ago';
+    }
+    var resetDate = new Date(resetTs);
+    var absolute = (resetDate.getMonth() + 1) + '月' + resetDate.getDate() + '日 ' +
+      twoDigits(resetDate.getHours()) + ':' + twoDigits(resetDate.getMinutes());
+    ui.text('resetRel', relative);
+    ui.text('resetAbs', absolute + ' · codex-resets.com');
+  }
+
   function present(data) {
     var relativeNode;
     if (!data || !data.updatedAt || !data.sources) return;
@@ -333,6 +355,7 @@
       updateQuotaCard('cardZai', data.sources.zai);
       updateQuotaCard('cardCodex', data.sources.codex);
       updateBalance(data.sources.deepseek);
+      updateCodexResets(data.codexResets);
       updateQuote(data.quote);
       relativeNode = ui.find('relTime');
       if (relativeNode) ui.attribute(relativeNode, 'data-ts', data.updatedAt);
