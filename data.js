@@ -1,0 +1,93 @@
+window.DASH_DATA = {
+  "updatedAt": "2026-09-27T00:29:54.408+08:00",
+  "weather": {
+    "ok": true,
+    "description": "晴",
+    "iconKey": "clear",
+    "tempC": 25.4,
+    "feelsLikeC": 29.6,
+    "humidity": 85,
+    "windKph": 7.7,
+    "windDir": "西南风",
+    "place": "深圳",
+    "observedAt": "2026-09-27T00:15:00.000+08:00",
+    "fetchedAt": "2026-09-27T00:29:54.408+08:00",
+    "error": null
+  },
+  "quote": null,
+  "codexResets": {
+    "ok": true,
+    "label": "Codex Resets",
+    "resetAt": "2026-09-23T02:23:37.000+08:00",
+    "watch": null,
+    "resets": "54",
+    "avgInterval": "7.0d",
+    "longestWait": "67.7d",
+    "sourceUrl": "https://codex-resets.com/",
+    "fetchedAt": "2026-09-27T00:29:52.361+08:00",
+    "error": null
+  },
+  "sources": {
+    "claude": {
+      "ok": false,
+      "label": "Claude",
+      "windows": [],
+      "fetchedAt": "2026-09-27T00:29:52.352+08:00",
+      "error": "未启用",
+      "disabled": true
+    },
+    "codex": {
+      "ok": true,
+      "label": "Codex",
+      "windows": [
+        {
+          "name": "5小时",
+          "usedPct": 0,
+          "resetAt": "2026-09-27T05:29:53.000+08:00"
+        },
+        {
+          "name": "周",
+          "usedPct": 74,
+          "resetAt": "2026-09-28T00:14:03.000+08:00"
+        }
+      ],
+      "fetchedAt": "2026-09-27T00:29:52.353+08:00",
+      "error": null
+    },
+    "kimi": {
+      "ok": false,
+      "label": "Kimi",
+      "windows": [],
+      "fetchedAt": "2026-09-27T00:29:52.354+08:00",
+      "error": "未启用",
+      "disabled": true
+    },
+    "deepseek": {
+      "ok": true,
+      "label": "DeepSeek",
+      "balance": 15.57,
+      "currency": "CNY",
+      "detail": "余额 ¥15.57",
+      "fetchedAt": "2026-09-27T00:29:52.354+08:00",
+      "error": null
+    },
+    "zai": {
+      "ok": true,
+      "label": "GLM",
+      "windows": [
+        {
+          "name": "5小时",
+          "usedPct": 0,
+          "resetAt": null
+        },
+        {
+          "name": "周",
+          "usedPct": 30,
+          "resetAt": "2026-09-28T09:05:09.997+08:00"
+        }
+      ],
+      "fetchedAt": "2026-09-27T00:29:52.359+08:00",
+      "error": null
+    }
+  }
+};
