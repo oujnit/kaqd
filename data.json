@@ -1,0 +1,95 @@
+{
+  "updatedAt": "2026-11-08T03:26:06.191+08:00",
+  "weather": {
+    "ok": true,
+    "description": "阴",
+    "iconKey": "overcast",
+    "tempC": 23.5,
+    "feelsLikeC": 25.7,
+    "humidity": 83,
+    "windKph": 11.8,
+    "windDir": "东北风",
+    "place": "深圳",
+    "observedAt": "2026-11-08T03:15:00.000+08:00",
+    "fetchedAt": "2026-11-08T03:26:06.192+08:00",
+    "error": null
+  },
+  "quote": null,
+  "codexResets": {
+    "ok": true,
+    "label": "Codex Resets",
+    "resetAt": "2026-11-02T07:27:20.000+08:00",
+    "watch": null,
+    "resets": "71",
+    "avgInterval": "5.9d",
+    "longestWait": "67.7d",
+    "sourceUrl": "https://codex-resets.com/",
+    "fetchedAt": "2026-11-08T03:26:05.288+08:00",
+    "error": null
+  },
+  "sources": {
+    "claude": {
+      "ok": false,
+      "label": "Claude",
+      "windows": [],
+      "fetchedAt": "2026-11-08T03:26:05.278+08:00",
+      "error": "未启用",
+      "disabled": true
+    },
+    "codex": {
+      "ok": true,
+      "label": "Codex",
+      "windows": [
+        {
+          "name": "5小时",
+          "usedPct": 0,
+          "resetAt": "2026-09-28T02:16:11.000+08:00"
+        },
+        {
+          "name": "周",
+          "usedPct": 0,
+          "resetAt": "2026-10-04T21:16:11.000+08:00"
+        }
+      ],
+      "fetchedAt": "2026-09-27T22:09:14.362+08:00",
+      "error": "spawn /Applications/ChatGPT.app/Contents/Resources/codex ENOENT",
+      "stale": true,
+      "lastAttemptAt": "2026-11-08T03:26:05.280+08:00"
+    },
+    "kimi": {
+      "ok": false,
+      "label": "Kimi",
+      "windows": [],
+      "fetchedAt": "2026-11-08T03:26:05.281+08:00",
+      "error": "未启用",
+      "disabled": true
+    },
+    "deepseek": {
+      "ok": true,
+      "label": "DeepSeek",
+      "balance": 48.35,
+      "currency": "CNY",
+      "detail": "余额 ¥48.35",
+      "fetchedAt": "2026-11-08T03:26:05.281+08:00",
+      "error": null
+    },
+    "zai": {
+      "ok": true,
+      "label": "GLM",
+      "windows": [
+        {
+          "name": "5小时",
+          "usedPct": 0,
+          "resetAt": null
+        },
+        {
+          "name": "周",
+          "usedPct": 1,
+          "resetAt": "2026-11-09T09:05:09.981+08:00"
+        }
+      ],
+      "fetchedAt": "2026-11-08T03:26:05.286+08:00",
+      "error": null
+    }
+  }
+}
